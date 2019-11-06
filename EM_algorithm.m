@@ -2,7 +2,7 @@ function [C, Se, Sp] = EM_algorithm(classes_data)
 %EM_ALGORITHM Summary of this function goes here
 %   Detailed explanation goes here
 
-    rng(10);
+    %rng(10);
     [data, labels] = two_bins_data(classes_data);
     var_size = size(data, 1);
     N = size(data, 2);
@@ -46,23 +46,25 @@ function [C, Se, Sp] = EM_algorithm(classes_data)
         objective = [objective, EM_objective(z, lambda, data, Mu)];
         diff = abs(objective(end) - objective(end-1));
         if diff<epsilon && iterations>10
-            mode = 'unlabeled';
+            mode = 0;
             imagination_print(Mu, fileID, iterations, diff, mode);
             [~, result_labels] = max(W_new, [], 1);
-            mode = 'labeled';
+            mode = 1;
             Mu  = relabel_truth(Mu, result_labels, labels, classes_data);
             W_new = compute_responsibilities(data, Mu, lambda);
             [~, result_labels] = max(W_new, [], 1);
-            imagination_print(Mu, fileID, iteration, diff, mode);
-            confusion_print(fileID, result_labels, labels, iterations);
+            imagination_print(Mu, fileID, iterations, diff, mode);
+            confusion_print(fileID, result_labels-1, labels, iterations);
             break;
         end
         if (iterations==1)
-            mode = 'unlabeled';
+            mode = 0;
             imagination_print(Mu, fileID, iterations, diff, mode);
         end
         iterations = iterations + 1;
     end
     fclose(fileID);
+    figure;
+    plot(objective);
 end
 

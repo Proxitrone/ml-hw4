@@ -18,9 +18,9 @@ function error = imagination_print(classifier, fileID, iterations, diff, mode)
         
 %         disp(bayes_representation');
 %         disp(' ');
-        if mode == 'unlabeled'
+        if mode == 0
             fprintf(fileID, ['class ', num2str(i-1), ':\n']);
-        elseif mode == 'labeled'
+        elseif mode == 1
             fprintf(fileID, ['labeled class ', num2str(i-1), ':\n']);
         end
         col_string = '';

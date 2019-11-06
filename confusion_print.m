@@ -19,10 +19,10 @@ function [C, Se, Sp] = confusion_print(fileID, result_labels, labels, iterations
         Sp{i} = C{i}(2,2)/(C{i}(2, 1)+C{i}(2, 2));
         numstr = num2str(i-1);
         fprintf(fileID, ['Confusion Matrix ', numstr, ':\n']);
-        fprintf(fileID, ['             Predict number ',numstr,'  Predict not number ', numstr, '\n']);
-        fprintf(fileID, ['Is number ',numstr, '       ', num2str(C{i}(1, 1)), '           ', num2str(C{i}(1, 2)), '\n']);
+        fprintf(fileID, ['              Predict number ',numstr,'  Predict not number ', numstr, '\n']);
+        fprintf(fileID, ['Is number    ',numstr, '       ', num2str(C{i}(1, 1)), '           ', num2str(C{i}(1, 2)), '\n']);
         fprintf(fileID, ['Isn''t number ',numstr, '       ', num2str(C{i}(2, 1)), '           ', num2str(C{i}(2, 2)), '\n\n']);
-        fprintf(fileID, ['Sensitivity (Successfully predict number ', numstr, ')     :', num2str(Se{i},5)]);
+        fprintf(fileID, ['Sensitivity (Successfully predict number ', numstr, ')    :', num2str(Se{i},5),'\n']);
         fprintf(fileID, ['Specificity (Successfully predict not number ', numstr, '):', num2str(Sp{i},5), '\n\n']);
         fprintf(fileID, '-------------------------------------------------------------\n\n');
     end
